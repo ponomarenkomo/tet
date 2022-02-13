@@ -19,7 +19,7 @@ jobs:
     steps:
     - name: Deploy Contentful
       uses: contentful/contentful-action@main
-      with:
+      env:
           SPACE_ID: ${{ secrets.CONTENTFUL_SPACE_ID }}
           MANAGEMENT_API_KEY: ${{ secrets.CONTENTFUL_MANAGEMENT_API_KEY }}
           ACCESS_TOKEN: $ {{ secrets.ACCESS_TOKEN }}
