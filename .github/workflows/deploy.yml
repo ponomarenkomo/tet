@@ -17,15 +17,6 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-#     - name: Deploy Contentful
-#       uses: contentful/contentful-action@main
-#       id: migration
-#       env:
-#           SPACE_ID: ${{ secrets.CONTENTFUL_SPACE_ID }}
-#           MANAGEMENT_API_KEY: ${{ secrets.CONTENTFUL_MANAGEMENT_API_KEY }}
-#           CONTENTFUL_ACCESS_TOKEN: ${{ secrets.CONTENTFUL_ACCESS_TOKEN }}
-#           MIGRATIONS_DIR: contentful/
-#           ACCESS_TOKEN: $ {{ secrets.ACCESS_TOKEN }}
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
@@ -38,8 +29,6 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: echo ${{ secrets.CONTENTFUL_SPACE_ID }} >> .env
-    - run: echo ${{ secrets.CONTENTFUL_ACCESS_TOKEN }} >> .env
     - run: npm ci
     - run: npm install -g gatsby-cli
     - run: gatsby build
