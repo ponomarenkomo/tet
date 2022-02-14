@@ -43,5 +43,5 @@ jobs:
     - run: npm ci
     - run: npm install -g gatsby-cli
     - run: gatsby build
-    - run: aws s3 sync public/ s3://${{ secrets.BUCKET_NAME }}/ --recursive
+    - run: aws s3 sync public/ s3://${{ secrets.BUCKET_NAME }}/
     
