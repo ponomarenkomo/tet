@@ -32,14 +32,19 @@ jobs:
       env:
         CONTENTFUL_SPACE_ID: ${{ secrets.CONTENTFUL_SPACE_ID }}
         CONTENTFUL_ACCESS_TOKEN: ${{ secrets.CONTENTFUL_ACCESS_TOKEN }}
-        
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v2
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - run: npm ci
-    - run: npm install -g gatsby-cli
-    - run: gatsby build
+    - name: Check
+      shell: bash
+      run: |
+        pwd
+        ls
+        cat .env
+#     - name: Use Node.js ${{ matrix.node-version }}
+#       uses: actions/setup-node@v2
+#       with:
+#         node-version: ${{ matrix.node-version }}
+#         cache: 'npm'
+#     - run: npm ci
+#     - run: npm install -g gatsby-cli
+#     - run: gatsby build
 #     - run: aws s3 sync public/ s3://${{ secrets.BUCKET_NAME }}/
     
