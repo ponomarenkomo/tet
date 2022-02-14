@@ -1,8 +1,8 @@
 name: build and deploy
 
 on:
-  push:
-    branches: [ master ]
+#   push:
+#     branches: [ master ]
   repository_dispatch:
     types: [publish-event]
 #   pull_request:
@@ -38,7 +38,8 @@ jobs:
         CONTENTFUL_SPACE_ID: ${{ secrets.CONTENTFUL_SPACE_ID }}
         CONTENTFUL_ACCESS_TOKEN: ${{ secrets.CONTENTFUL_ACCESS_TOKEN }}
     - run: aws s3 sync public/ s3://${{ secrets.BUCKET_NAME }}/
-    - run: aws cloudfront create-invalidation --distribution-id "$DISTRIBUTION_ID" --paths /*
+    - run: aws cloudfront create-invalidation --distribution-id "$DISTRIBUTION_ID" --paths s3://"$BUCKET_NAME"/*
       shell: bash
       env:
         DISTRIBUTION_ID : ${{ secrets.DISTRIBUTION_ID }}
+        BUCKET_NAME : ${{ secrets.BUCKET_NAME }}
