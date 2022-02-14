@@ -1,12 +1,12 @@
 require("dotenv").config()
 
-// const { CONTENTFUL_SPACE_ID, CONTENTFUL_ACCESS_TOKEN } = process.env
+const { CONTENTFUL_SPACE_ID, CONTENTFUL_ACCESS_TOKEN } = process.env
 
-// if (!CONTENTFUL_SPACE_ID || !CONTENTFUL_ACCESS_TOKEN) {
-//   throw new Error(
-//     "Contentful spaceId and the access token need to be provided."
-//   )
-// }
+if (!CONTENTFUL_SPACE_ID || !CONTENTFUL_ACCESS_TOKEN) {
+  throw new Error(
+    "Contentful spaceId and the access token need to be provided."
+  )
+}
 
 module.exports = {
   siteMetadata: {
@@ -31,10 +31,8 @@ module.exports = {
     {
       resolve: `gatsby-source-contentful`,
       options: {
-        spaceId: `86fhu5skd9j1`,
-        accessToken: `CFPAT--wQ-xsX8c5dIIM82HoYPqp8i0NpL2H1LuiW2-NovHzs`,
-//         spaceId: CONTENTFUL_SPACE_ID,
-//         accessToken: CONTENTFUL_ACCESS_TOKEN,
+        spaceId: CONTENTFUL_SPACE_ID,
+        accessToken: CONTENTFUL_ACCESS_TOKEN,
         downloadLocal: true,
       },
     },
