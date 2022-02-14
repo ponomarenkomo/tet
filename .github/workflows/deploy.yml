@@ -1,8 +1,8 @@
 name: build and deploy
 
-# on:
-#   push:
-#     branches: [ master ]
+on:
+  push:
+    branches: [ master ]
 #   pull_request:
 #     branches: [ main ]
 
@@ -24,22 +24,21 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: us-east-2
     - uses: actions/checkout@v2
+    - name: Add Contentful keys
+      run: |
+        'echo "$CONTENTFUL_SPACE_ID" >> .env'
+        'echo "$CONTENTFUL_ACCESS_TOKEN" >> .env'
+      env:
+        CONTENTFUL_SPACE_ID: ${{ secrets.CONTENTFUL_SPACE_ID }}
+        CONTENTFUL_ACCESS_TOKEN: ${{ secrets.CONTENTFUL_ACCESS_TOKEN }}
+        
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    
-#     - run: 'echo "$CONTENTFUL_SPACE_ID" >> .env'
-#       shell: bash
-#       env:
-#         CONTENTFUL_SPACE_ID: ${{ secrets.CONTENTFUL_SPACE_ID }}
-#     - run: 'echo "$CONTENTFUL_ACCESS_TOKEN" >> .env'
-#       shell: bash
-#       env:
-#         CONTENTFUL_ACCESS_TOKEN: ${{ secrets.CONTENTFUL_ACCESS_TOKEN }}
     - run: npm ci
     - run: npm install -g gatsby-cli
     - run: gatsby build
-    - run: aws s3 sync public/ s3://${{ secrets.BUCKET_NAME }}/
+#     - run: aws s3 sync public/ s3://${{ secrets.BUCKET_NAME }}/
     
