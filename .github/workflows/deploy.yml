@@ -29,8 +29,16 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+    - name: Contentful config
+      shell: bash
+      env:
+        CONTENTFUL_SPACE_ID: ${{ secrets.CONTENTFUL_SPACE_ID }}
+        CONTENTFUL_ACCESS_TOKEN: ${{ secrets.CONTENTFUL_ACCESS_TOKEN }}
+      run: |
+        echo "$CONTENTFUL_SPACE_ID" >> .env
+        echo "$CONTENTFUL_ACCESS_TOKEN" >> .env
+        cat .env
     - run: npm ci
     - run: npm install -g gatsby-cli
     - run: gatsby build
-    - run: aws s3 sync public/ s3://${{ secrets.BUCKET_NAME }}/
-    
+#     - run: aws s3 sync public/ s3://${{ secrets.BUCKET_NAME }}/
