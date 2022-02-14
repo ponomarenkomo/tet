@@ -1,38 +1,38 @@
-on:
-  repository_dispatch:
-    types: [publish-event]
+# on:
+#   repository_dispatch:
+#     types: [publish-event]
   
   
-jobs:
-  build:
+# jobs:
+#   build:
 
-    runs-on: ubuntu-latest
+#     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [14.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+#     strategy:
+#       matrix:
+#         node-version: [14.x]
+#         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
-    steps:
-    - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: us-east-2
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v2
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - run: npm ci
-    - run: npm install -g gatsby-cli
-    - run: gatsby build
-      env:
-        CONTENTFUL_SPACE_ID: ${{ secrets.CONTENTFUL_SPACE_ID }}
-        CONTENTFUL_ACCESS_TOKEN: ${{ secrets.CONTENTFUL_ACCESS_TOKEN }}
-    - run: aws s3 sync public/ s3://${{ secrets.BUCKET_NAME }}/
-    - run: aws cloudfront create-invalidation --distribution-id $DISTRIBUTION_ID --paths /*
-      env:
-        DISTRIBUTION_ID : ${{ secrets.DISTRIBUTION_ID }}
+#     steps:
+#     - name: Configure AWS credentials
+#       uses: aws-actions/configure-aws-credentials@v1
+#       with:
+#         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#         aws-region: us-east-2
+#     - uses: actions/checkout@v2
+#     - name: Use Node.js ${{ matrix.node-version }}
+#       uses: actions/setup-node@v2
+#       with:
+#         node-version: ${{ matrix.node-version }}
+#         cache: 'npm'
+#     - run: npm ci
+#     - run: npm install -g gatsby-cli
+#     - run: gatsby build
+#       env:
+#         CONTENTFUL_SPACE_ID: ${{ secrets.CONTENTFUL_SPACE_ID }}
+#         CONTENTFUL_ACCESS_TOKEN: ${{ secrets.CONTENTFUL_ACCESS_TOKEN }}
+#     - run: aws s3 sync public/ s3://${{ secrets.BUCKET_NAME }}/
+#     - run: aws cloudfront create-invalidation --distribution-id $DISTRIBUTION_ID --paths /*
+#       env:
+#         DISTRIBUTION_ID : ${{ secrets.DISTRIBUTION_ID }}
