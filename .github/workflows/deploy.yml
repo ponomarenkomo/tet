@@ -25,8 +25,8 @@ jobs:
         aws-region: us-east-2
     - uses: actions/checkout@v2
     - name: Add Contentful keys
-    - run: |
-        'echo "$CONTENTFUL_SPACE_ID" >> .env'
+      run: |
+        'echo "$CONTENTFUL_SPACE_ID" > .env'
         'echo "$CONTENTFUL_ACCESS_TOKEN" >> .env'
       env:
         CONTENTFUL_SPACE_ID: ${{ secrets.CONTENTFUL_SPACE_ID }}
