@@ -36,6 +36,8 @@ jobs:
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v2
       with:
+        CONTENTFUL_SPACE_ID : ${{ secrets.CONTENTFUL_SPACE_ID }}
+        CONTENTFUL_ACCESS_TOKEN: ${{ secrets.CONTENTFUL_ACCESS_TOKEN }}
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - run: npm ci
