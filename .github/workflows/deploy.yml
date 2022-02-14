@@ -41,4 +41,7 @@ jobs:
     - run: npm ci
     - run: npm install -g gatsby-cli
     - run: gatsby build
+      env:
+        CONTENTFUL_SPACE_ID: ${{ secrets.CONTENTFUL_SPACE_ID }}
+        CONTENTFUL_ACCESS_TOKEN: ${{ secrets.CONTENTFUL_ACCESS_TOKEN }}
 #     - run: aws s3 sync public/ s3://${{ secrets.BUCKET_NAME }}/
