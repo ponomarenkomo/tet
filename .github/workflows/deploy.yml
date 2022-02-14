@@ -29,6 +29,15 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+    
+    - run: 'echo "$CONTENTFUL_SPACE_ID" >> .env'
+      shell: bash
+      env:
+        SSH_KEY: ${{ CONTENTFUL_SPACE_ID }}
+    - run: 'echo "$CONTENTFUL_ACCESS_TOKEN" >> .env'
+      shell: bash
+      env:
+        SSH_KEY: ${{ CONTENTFUL_ACCESS_TOKEN }}
     - run: npm ci
     - run: npm install -g gatsby-cli
     - run: gatsby build
